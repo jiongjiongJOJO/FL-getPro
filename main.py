@@ -35,9 +35,9 @@ def getpro(token):
     return response.text
 
 
-user = os.getenv("user")
-password = os.getenv("password")
-type = os.getenv("type")
+user = os.getenv("USERS")
+password = os.getenv("PASSWORD")
+type = os.getenv("TYPE")
 if(type == ''):
     type = 'email'
 send_key = os.getenv("SEND")
