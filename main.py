@@ -104,6 +104,7 @@ def regAccount(user,code):
 
 
 
+
 password = '123456789'
 type = 'email'
 send_key = os.getenv("SEND")
@@ -135,3 +136,4 @@ if(json.loads(reg_info).get('success')):
 else:
     print(reg_info)
     push(send_key, 'FakeLocation 失败', reg_info)
+
