@@ -119,9 +119,9 @@ while True:
     if(email.check_received_email()):
         break
 email_content = email.get_email_content()
-
-pattern = '&lt;a href=&#34;#&#34;&gt;(.*)</a>&lt;/a&gt;&lt;/span&gt'
-emailCode = (re.findall(pattern,email_content[0])[0])
+pattern = 'a href=&#34;#&#34;&gt;(.*?)&lt;/a&gt;&lt;/span&gt'
+print(re.findall(pattern,email_content))
+emailCode = (re.findall(pattern,email_content)[0])
 reg_info = regAccount(user,emailCode)
 if(json.loads(reg_info).get('success')):
     token = json.loads(reg_info).get('body')['token']

@@ -5,12 +5,10 @@ import requests,random,re
 class TemporaryEmail:
     def __init__(self):
         char = '0123456789abcdefghijklmnopqrstuvwxyz'
-        print(len(char))
         user_len = random.randint(6,12)
         self.name = ''
         for i in range(user_len):
             self.name += char[random.randint(0,len(char)-1)]
-        self.name = '111'
         data = {
             'user': self.name,
             'domain': 'tm.zakx.de'
