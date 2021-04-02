@@ -1,5 +1,5 @@
 import os,requests,json,re
-from temporary_email import TemporaryEmail
+from tempmail import TemporaryEmail
 
 def push(key,title,content):
 
@@ -120,7 +120,7 @@ while True:
         break
 email_content = email.get_email_content()
 
-pattern = '<a href="#">(.*)</a></span>'
+pattern = '&lt;a href=&#34;#&#34;&gt;(.*)</a>&lt;/a&gt;&lt;/span&gt'
 emailCode = (re.findall(pattern,email_content[0])[0])
 reg_info = regAccount(user,emailCode)
 if(json.loads(reg_info).get('success')):
