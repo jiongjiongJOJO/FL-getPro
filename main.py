@@ -120,7 +120,6 @@ while True:
         break
 email_content = email.get_email_content()
 pattern = 'a href=&#34;#&#34;&gt;(.*?)&lt;/a&gt;&lt;/span&gt'
-print(re.findall(pattern,email_content))
 emailCode = (re.findall(pattern,email_content)[0])
 reg_info = regAccount(user,emailCode)
 if(json.loads(reg_info).get('success')):
