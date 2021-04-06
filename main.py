@@ -140,8 +140,7 @@ reg_info = regAccount(user,emailCode)
 if(json.loads(reg_info).get('success')):
     token = json.loads(reg_info).get('body')['token']
     userId = json.loads(reg_info).get('body')['userId']
-    a = setLoginPwd(user,password,type,emailCode,token,userId)
-    print(a)
+    setLoginPwd(user,password,type,emailCode,token,userId)
     getpro_info = getpro(token)
     getpro_code = json.loads(getpro_info).get('code')
     if(getpro_code == 200):
