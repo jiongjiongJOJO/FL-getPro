@@ -2,7 +2,7 @@ name: FL-getPro
 
 on:
   push:
-    branches: main
+    branches: chacuo.net
   gollum:
   workflow_dispatch:
   schedule:
