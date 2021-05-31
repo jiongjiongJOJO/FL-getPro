@@ -1,10 +1,10 @@
-name: FL-getPro-chacuo.net
+name: FL-getPro
 
 on:
 
   push:
 
-    branches: chacuo.net
+    branches: main
 
   gollum:
 
