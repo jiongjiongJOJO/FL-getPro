@@ -1,5 +1,5 @@
 import os,requests,json,re
-from tempmail import TemporaryEmail
+from temporary_email import TemporaryEmail
 
 def push(key,title,content):
 
@@ -23,7 +23,6 @@ def login(user,password,type):
     data_json = {"loginName":user,"loginPwd":password,"loginType":type,"deviceId":"547f6feb12d6411d","deviceModel":"OnePlus HD1900","deviceSdkCode":29,"deviceSdkName":"10","flavor":"CN","language":"zh","packageName":"com.lerist.fakelocation","timezone":"GMT+08:00","versionCode":"906","versionName":"1.2.1.8"}
     response = requests.post('http://fakelocation.api.lerist.cc:8000/FakeLocation/user/login',json=data_json,headers=headers)
     return response.text
-
 
 def getpro(token):
     headers = {
@@ -103,22 +102,7 @@ def regAccount(user,code):
     response = requests.post('http://fakelocation.api.lerist.cc:8000/FakeLocation/user/login',json=data_json,headers=headers)
     return response.text
 
-def setLoginPwd(user,password,type,emailCode,token,userId):
-    headers = {
-        'User-Agent': 'okhttp/4.2.2',
-        'Connection': 'Keep-Alive',
-        'Accept-Encoding': 'gzip',
-        'Content-Type': 'application/json; charset=UTF-8'
-    }
-    data_json = {"loginName": user, "loginPwd": password, "loginType": type,
-                 "vercode": emailCode, "deviceId": "547f6feb12d6411d", "deviceModel": "OnePlus HD1900",
-                 "deviceSdkCode": 29, "deviceSdkName": "10", "flavor": "CN", "language": "zh",
-                 "packageName": "com.lerist.fakelocation", "timezone": "GMT+08:00",
-                 "token": token, "userId": userId,
-                 "versionCode": "906", "versionName": "1.2.1.8"}
-    response = requests.post('http://fakelocation.api.lerist.cc:8000/FakeLocation/user/setLoginPwd', json=data_json,
-                             headers=headers)
-    return response.text
+
 
 password = '123456789'
 type = 'email'
@@ -134,13 +118,12 @@ while True:
     if(email.check_received_email()):
         break
 email_content = email.get_email_content()
-pattern = 'a href=&#34;#&#34;&gt;(.*?)&lt;/a&gt;&lt;/span&gt'
-emailCode = (re.findall(pattern,email_content)[0])
+
+pattern = '<a href="#">(.*)</a></span>'
+emailCode = (re.findall(pattern,email_content[0])[0])
 reg_info = regAccount(user,emailCode)
 if(json.loads(reg_info).get('success')):
     token = json.loads(reg_info).get('body')['token']
-    userId = json.loads(reg_info).get('body')['userId']
-    setLoginPwd(user,password,type,emailCode,token,userId)
     getpro_info = getpro(token)
     getpro_code = json.loads(getpro_info).get('code')
     if(getpro_code == 200):
@@ -152,4 +135,3 @@ if(json.loads(reg_info).get('success')):
 else:
     print(reg_info)
     push(send_key, 'FakeLocation 失败', reg_info)
-
